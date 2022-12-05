@@ -46,6 +46,18 @@ class AddTimerViewController: UIViewController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        if lightingMode == "Dark"{
+            view.overrideUserInterfaceStyle = .dark
+        }
+        else if lightingMode == "Light"{
+            view.overrideUserInterfaceStyle = .light
+        }
+        else{
+            view.overrideUserInterfaceStyle = .light
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

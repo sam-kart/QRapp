@@ -9,6 +9,7 @@ import UIKit
 
 class PrivatePolicyViewController: UIViewController {
 
+    @IBOutlet weak var privacyPolicyTitle: UILabel!
     @IBOutlet weak var privacyPolicy: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,19 @@ class PrivatePolicyViewController: UIViewController {
         }
         else{
             view.overrideUserInterfaceStyle = .light
+        }
+        
+        if defaultFont == "Roboto"{
+            privacyPolicy.font = UIFont(name: "Roboto", size: 16)
+            privacyPolicyTitle.font = UIFont(name: "Roboto", size: 16)
+        }
+        if defaultFont == "Arial"{
+            privacyPolicy.font = UIFont(name: "Arial", size: 16)
+            privacyPolicyTitle.font = UIFont(name: "Arial", size: 16)
+        }
+        if defaultFont == "TimesNewRomanPSMT"{
+            privacyPolicy.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
+            privacyPolicyTitle.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
         }
     }
     

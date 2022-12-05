@@ -43,17 +43,6 @@ class ShareVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
             }
         }
 
-        
-        if lightingMode == "Dark"{
-            view.overrideUserInterfaceStyle = .dark
-        }
-        if lightingMode == "Light"{
-            view.overrideUserInterfaceStyle = .light
-        }
-        else{
-            view.overrideUserInterfaceStyle = .light
-        }
-
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.images.count
@@ -105,10 +94,18 @@ class ShareVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataS
     override func viewWillAppear(_ animated: Bool) {
         viewDidLoad()
         collectionView.reloadData()
+        if lightingMode == "Dark"{
+            view.overrideUserInterfaceStyle = .dark
+        }
+        else if lightingMode == "Light"{
+            view.overrideUserInterfaceStyle = .light
+        }
+        else{
+            view.overrideUserInterfaceStyle = .light
+        }
     }
     func reload() {
         collectionView.reloadData()
 
     }
-
 }
