@@ -10,7 +10,6 @@ import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
-
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var statusLabel: UILabel!
@@ -37,8 +36,6 @@ class LoginViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
-
     /*
     // MARK: - Navigation
 
@@ -48,5 +45,4 @@ class LoginViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
 }

@@ -26,8 +26,6 @@ class MakeNameVC: UIViewController {
             view.overrideUserInterfaceStyle = .light
         }
     }
-    
-
     /*
     // MARK: - Navigation
 

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import FirebaseAuth
 
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let context = appDelegate.persistentContainer.viewContext
@@ -21,6 +22,8 @@ public var defaultFont = defaults.string(forKey: "fontType")
 class SettingsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var policyButton: UIButton!
+    @IBOutlet weak var signOutButton: UIButton!
     
     let textCellIdentifier = "TextCell"
     let settingSegueIdentifier = "SettingSegueIdentifier"
@@ -30,16 +33,11 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         lightingMode = defaults.string(forKey: "lightingType")
-        if lightingMode == "Dark"{
-            view.overrideUserInterfaceStyle = .dark
-        }
-        if lightingMode == "Light"{
-            view.overrideUserInterfaceStyle = .light
-        }
-        // Do any additional setup after loading the view.
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        // dark/light mode logic
         if lightingMode == "Dark"{
             view.overrideUserInterfaceStyle = .dark
         }
@@ -49,6 +47,21 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         else{
             view.overrideUserInterfaceStyle = .light
         }
+        
+        // font logic
+        if defaultFont == "Roboto"{
+            policyButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+            signOutButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+        }
+        if defaultFont == "Arial"{
+            policyButton.titleLabel?.font = UIFont(name: "Arial", size: 16)
+            signOutButton.titleLabel?.font = UIFont(name: "Arial", size: 16)
+        }
+        if defaultFont == "TimesNewRomanPSMT"{
+            policyButton.titleLabel?.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
+            signOutButton.titleLabel?.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,6 +72,17 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
         let row = indexPath.row
         let cell = tableView.dequeueReusableCell(withIdentifier: textCellIdentifier, for: indexPath)
         cell.textLabel?.text = settings[row]
+        
+        // update font based on user input
+        if defaultFont == "Roboto"{
+            cell.textLabel?.font = UIFont(name: "Roboto", size: 16)
+        }
+        if defaultFont == "Arial"{
+            cell.textLabel?.font = UIFont(name: "Arial", size: 16)
+        }
+        if defaultFont == "TimesNewRomanPSMT"{
+            cell.textLabel?.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
+        }
         return cell
     }
     
@@ -101,12 +125,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 preferredStyle: .actionSheet)
             
             let arialAction = UIAlertAction(
-                title: "Arial",
+                title: "Arial (Default)",
                 style: .default,
                 handler: {
                     action in defaultFont = "Arial"
                     defaults.set(defaultFont, forKey: "fontType")
-                })
+                    self.policyButton.titleLabel?.font = UIFont(name: "Arial", size: 16)
+                    self.signOutButton.titleLabel?.font = UIFont(name: "Arial", size: 16)
+                    tableView.reloadData()
+                }
+            )
             controller.addAction(arialAction)
 
             let robotoAction = UIAlertAction(
@@ -115,15 +143,22 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
                 handler: {
                     action in defaultFont = "Roboto"
                     defaults.set(defaultFont, forKey: "fontType")
-                })
+                    self.policyButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+                    self.signOutButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+                    tableView.reloadData()
+                }
+            )
             controller.addAction(robotoAction)
             
             let defaultAction = UIAlertAction(
-                title: "Default",
+                title: "Times New Roman",
                 style: .default,
                 handler: {
-                    action in defaultFont = "Default"
+                    action in defaultFont = "TimesNewRomanPSMT"
                     defaults.set(defaultFont, forKey: "fontType")
+                    self.policyButton.titleLabel?.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
+                    self.signOutButton.titleLabel?.font = UIFont(name: "TimesNewRomanPSMT", size: 16)
+                    tableView.reloadData()
                 })
             controller.addAction(defaultAction)
             
@@ -156,6 +191,16 @@ class SettingsViewController: UIViewController, UITableViewDelegate, UITableView
     
     @IBAction func recognizeLongPress(_ sender: Any) {
         performSegue(withIdentifier: "toReqFull", sender: nil)
+    }
+    
+    
+    @IBAction func singOutButtonPress(_ sender: Any) {
+        do {
+            try Auth.auth().signOut()
+            navigationController?.popViewController(animated: true)
+        } catch {
+            print("Sign out error")
+        }
     }
 }
 

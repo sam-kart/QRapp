@@ -12,13 +12,13 @@ import CoreData
 
 class WhatTFthisVCfor: UIViewController {
 
-    
+    @IBOutlet weak var makeButton: UIButton!
+    @IBOutlet weak var lable: UILabel!
     @IBOutlet var textstuff: UITextField!
     
     @IBOutlet var theImage: UIImageView!
     var delegate = ShareVC()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         if lightingMode == "Dark"{
@@ -55,6 +55,19 @@ class WhatTFthisVCfor: UIViewController {
         else{
             view.overrideUserInterfaceStyle = .light
         }
+        
+        if defaultFont == "Roboto"{
+            lable.font = UIFont(name: "Roboto", size: 16)
+            makeButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+        }
+        if defaultFont == "Arial"{
+            lable.font = UIFont(name: "Roboto", size: 16)
+            makeButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+        }
+        if defaultFont == "TimesNewRomanPSMT"{
+            lable.font = UIFont(name: "Roboto", size: 16)
+            makeButton.titleLabel?.font = UIFont(name: "Roboto", size: 16)
+        }
     }
     
     func saveContext () {
@@ -85,5 +98,4 @@ class WhatTFthisVCfor: UIViewController {
         }
         return nil
     }
-
 }

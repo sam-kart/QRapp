@@ -28,7 +28,4 @@ class LogoViewController: UIViewController {
         let image = UIImage(named: "linkd-long-logo")
         mainImage.image = image
     }
-    
-
-
 }
